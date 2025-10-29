@@ -1,0 +1,1 @@
+enum apiState {initial,loading,loaded,error}
