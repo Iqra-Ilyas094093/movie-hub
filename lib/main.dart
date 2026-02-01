@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_hub/view/widgets/Navigation.dart';
 import 'package:movie_hub/view_model/popularMovies_view_model.dart';
@@ -17,6 +18,30 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final app = MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      themeMode: ThemeMode.dark,
+      theme: ThemeData(
+        useMaterial3: true,
+        fontFamily: 'PlusJakartaSans',
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF5b13ec),
+          brightness: Brightness.light,
+          background: const Color(0xFFf6f6f8),
+        ),
+      ),
+      darkTheme: ThemeData(
+        useMaterial3: true,
+        fontFamily: 'PlusJakartaSans',
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF5b13ec),
+          brightness: Brightness.dark,
+          background: const Color(0xFF161022),
+        ),
+      ),
+      home:Navigation(),
+    );
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context)=>topRatedMoviesProvider()),
@@ -25,30 +50,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (create)=>SearchMoviesProvider()),
         ChangeNotifierProvider(create: (create)=>WishListProvider()),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        themeMode: ThemeMode.dark,
-        theme: ThemeData(
-          useMaterial3: true,
-          fontFamily: 'PlusJakartaSans',
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color(0xFF5b13ec),
-            brightness: Brightness.light,
-            background: const Color(0xFFf6f6f8),
-          ),
-        ),
-        darkTheme: ThemeData(
-          useMaterial3: true,
-          fontFamily: 'PlusJakartaSans',
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color(0xFF5b13ec),
-            brightness: Brightness.dark,
-            background: const Color(0xFF161022),
-          ),
-        ),
-        home:Navigation(),
-      ),
+      child: kIsWeb?Center(child: SizedBox(width: 390,child: app,),):app,
     );
   }
 }
