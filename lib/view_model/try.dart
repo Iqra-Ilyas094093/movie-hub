@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:movie_hub/Utils/Urls.dart';
 import 'package:movie_hub/Utils/enum.dart';
 import 'package:movie_hub/Utils/movie_details_route.dart';
-import 'package:movie_hub/view/screens/movie_details_screen.dart';
 import 'package:movie_hub/view_model/searchMovies_view_model.dart';
 import 'package:provider/provider.dart';
 

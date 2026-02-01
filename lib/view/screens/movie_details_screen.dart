@@ -14,7 +14,6 @@ class MovieDetailsScreen extends StatefulWidget {
 }
 
 class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
-  int _selectedTab = 0;
 
   String formatTime(int minutes) {
     final hours = minutes ~/ 60;
@@ -92,7 +91,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                       "${AppUrl.imageUrl}${viewModel.singleMovieIdSearch!.posterPath}",
                     ),
 
-                    // Movie Title and Meta
                     _buildMovieHeader(
                       viewModel.singleMovieIdSearch!.title,
                       formatTime(viewModel.singleMovieIdSearch!.runtime),
@@ -102,16 +100,12 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                       genre,
                     ),
 
-                    // Action Buttons
                     _buildActionButtons(viewModel.singleMovieIdSearch!.id),
 
-                    // Synopsis Section
                     _buildSynopsis(viewModel.singleMovieIdSearch!.overview),
 
-                    // Ratings Section
                     _buildRatings(imdbId, rottenTomatoes),
 
-                    // Tabbed Information
                     Padding(
                       padding: const EdgeInsets.all(16),
                       child: Column(

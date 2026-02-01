@@ -38,7 +38,6 @@ class _WatchlistScreenState extends State<WatchlistScreen> {
             return Column(
               children: [
                 const SizedBox(height: 10,),
-                // Top App Bar
                 Container(
                   color: const Color(0xFF161022),
                   child: Text(
@@ -53,8 +52,6 @@ class _WatchlistScreenState extends State<WatchlistScreen> {
                 ),
                 const SizedBox(height: 10,),
 
-
-                // Watchlist Grid
                 if (vm.movieIds.isNotEmpty)
                   Expanded(
                     child: GridView.builder(
@@ -123,7 +120,6 @@ class _WatchlistItemCardState extends State<WatchlistItemCard> {
       onExit: (_) => setState(() => _isHovered = false),
       child: Stack(
         children: [
-          // Movie/Show Poster
           GestureDetector(
             onTap: (){
               Navigator.push(context, movieDetailsRoute(widget.movie.id, MovieRepository()));
@@ -139,7 +135,6 @@ class _WatchlistItemCardState extends State<WatchlistItemCard> {
             ),
           ),
 
-          // Hover Overlay with Remove Button
           if (_isHovered)
             Container(
               decoration: BoxDecoration(

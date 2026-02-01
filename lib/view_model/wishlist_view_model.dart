@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:movie_hub/Utils/enum.dart';
 import 'package:movie_hub/model/single_movie_id_search.dart';
 import 'package:movie_hub/services/respository.dart';
-import 'package:movie_hub/view/screens/search_screen.dart';
 
 class WishListProvider extends ChangeNotifier{
   List<int> movieIds = [];

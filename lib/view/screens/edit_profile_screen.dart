@@ -145,7 +145,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            // Top App Bar
             Container(
               color: const Color(0xFF161022),
               padding: const EdgeInsets.all(16).copyWith(bottom: 8),
@@ -188,7 +187,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   children: [
-                    // Name Field
                     _buildFormField(
                       label: 'Name',
                       controller: _nameController,
@@ -198,7 +196,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                     const SizedBox(height: 16),
 
-                    // Email Field
                     _buildFormField(
                       label: 'Email',
                       controller: _emailController,
@@ -209,12 +206,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                     const SizedBox(height: 16),
 
-                    // Password Field
                     _buildPasswordField(),
 
                     const SizedBox(height: 24),
 
-                    // Action Buttons
                     _buildActionButtons(),
                   ],
                 ),

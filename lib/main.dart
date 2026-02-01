@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movie_hub/view/widgets/Navigation.dart';
 import 'package:movie_hub/view_model/popularMovies_view_model.dart';
-import 'package:movie_hub/view_model/searchById_view_model.dart';
 import 'package:movie_hub/view_model/searchMovies_view_model.dart';
 import 'package:movie_hub/view_model/topRatedMovies_view_model.dart';
-import 'package:movie_hub/view_model/try.dart';
 import 'package:movie_hub/view_model/upcomingMovies_view_model.dart';
 import 'package:movie_hub/view_model/wishlist_view_model.dart';
 import 'package:provider/provider.dart';

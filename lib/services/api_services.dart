@@ -1,10 +1,7 @@
 import 'dart:convert';
-import 'dart:developer';
-
 import 'package:http/http.dart' as http;
 import 'package:movie_hub/Utils/Urls.dart';
 import 'package:movie_hub/model/case_details_model.dart';
-import 'package:movie_hub/model/movie_details_model.dart';
 import 'package:movie_hub/model/popular_movie_model.dart';
 import 'package:movie_hub/model/ratingData_model.dart';
 import 'package:movie_hub/model/search_result_model.dart';

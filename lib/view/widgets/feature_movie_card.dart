@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:movie_hub/Utils/movie_details_route.dart';
 import 'package:movie_hub/services/respository.dart';
 
-import '../screens/movie_details_screen.dart';
 
 class FeaturedMovieCard extends StatelessWidget {
   final String imageUrl;

@@ -92,20 +92,6 @@ class _SearchScreenState extends State<SearchScreen> {
     });
   }
 
-  void _performSearch() {
-    final query = _searchController.text.trim();
-    if (query.isNotEmpty) {
-      if (!_recentSearches.any((search) => search.text == query)) {
-        setState(() {
-          _recentSearches.insert(1, RecentSearch(
-            icon: Icons.search,
-            text: query,
-          ));
-        });
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<SearchMoviesProvider>(context);
@@ -128,7 +114,6 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
             ),
 
-            // Search Bar
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               child: Container(
@@ -373,106 +358,6 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
         ],
       ),
-    );
-  }
-
-
-  Widget _buildMovieCard(Map<String, dynamic> movie) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              color: const Color(0xFF1c1c1e),
-              image: movie['imageUrl'] != null
-                  ? DecorationImage(
-                image: NetworkImage(movie['imageUrl']!),
-                fit: BoxFit.cover,
-              )
-                  : null,
-            ),
-            child: movie['imageUrl'] == null
-                ? Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                gradient: const LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    Color(0xFF5b13ec),
-                    Colors.black,
-                  ],
-                ),
-              ),
-              child: const Center(
-                child: Icon(
-                  Icons.movie,
-                  color: Colors.white30,
-                  size: 64,
-                ),
-              ),
-            )
-                : Stack(
-              children: [
-                // Rating badge
-                Positioned(
-                  top: 8,
-                  right: 8,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.6),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(
-                          Icons.star,
-                          color: Colors.yellow,
-                          size: 14,
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          movie['rating']?.toString() ?? 'N/A',
-                          style: const TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        const SizedBox(height: 12),
-        Text(
-          movie['title'],
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'BeVietnamPro',
-          ),
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-        ),
-        const SizedBox(height: 4),
-        Text(
-          '${movie['year']} • ${movie['genre']}',
-          style: const TextStyle(
-            color: Color(0xFF9ca3af),
-            fontSize: 12,
-            fontFamily: 'BeVietnamPro',
-          ),
-        ),
-      ],
     );
   }
 
