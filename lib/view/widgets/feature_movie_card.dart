@@ -1,6 +1,8 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:movie_hub/Utils/movie_details_route.dart';
+import 'package:movie_hub/services/respository.dart';
 
 import '../screens/movie_details_screen.dart';
 
@@ -82,7 +84,7 @@ class FeaturedMovieCard extends StatelessWidget {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MovieDetailsScreen(id: id,)));
+                          Navigator.of(context).push(movieDetailsRoute(id, MovieRepository()));
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF5b13ec),

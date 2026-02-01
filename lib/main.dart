@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:movie_hub/view/widgets/Navigation.dart';
-import 'package:movie_hub/view_model/movieDetails_view_mode.dart';
 import 'package:movie_hub/view_model/popularMovies_view_model.dart';
+import 'package:movie_hub/view_model/searchById_view_model.dart';
+import 'package:movie_hub/view_model/searchMovies_view_model.dart';
 import 'package:movie_hub/view_model/topRatedMovies_view_model.dart';
+import 'package:movie_hub/view_model/try.dart';
 import 'package:movie_hub/view_model/upcomingMovies_view_model.dart';
+import 'package:movie_hub/view_model/wishlist_view_model.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -21,10 +24,13 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context)=>topRatedMoviesProvider()),
         ChangeNotifierProvider(create: (create)=>UpcomingMoviesProvider()),
         ChangeNotifierProvider(create: (create)=>PopularMoviesProvider()),
-        ChangeNotifierProvider(create: (create)=>MovieDetailsProvider()),
+        ChangeNotifierProvider(create: (create)=>SearchMoviesProvider()),
+        ChangeNotifierProvider(create: (create)=>WishListProvider()),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
+        themeMode: ThemeMode.dark,
         theme: ThemeData(
           useMaterial3: true,
           fontFamily: 'PlusJakartaSans',

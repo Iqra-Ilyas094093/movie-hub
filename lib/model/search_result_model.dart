@@ -1,36 +1,36 @@
 import 'dart:convert';
 
-class PopularMoviesModel {
+class SearchResultModel {
   int page;
   List<Result> results;
   int totalPages;
   int totalResults;
 
-  PopularMoviesModel({
+  SearchResultModel({
     required this.page,
     required this.results,
     required this.totalPages,
     required this.totalResults,
   });
 
-  PopularMoviesModel copyWith({
+  SearchResultModel copyWith({
     int? page,
     List<Result>? results,
     int? totalPages,
     int? totalResults,
   }) =>
-      PopularMoviesModel(
+      SearchResultModel(
         page: page ?? this.page,
         results: results ?? this.results,
         totalPages: totalPages ?? this.totalPages,
         totalResults: totalResults ?? this.totalResults,
       );
 
-  factory PopularMoviesModel.fromRawJson(String str) => PopularMoviesModel.fromJson(json.decode(str));
+  factory SearchResultModel.fromRawJson(String str) => SearchResultModel.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory PopularMoviesModel.fromJson(Map<String, dynamic> json) => PopularMoviesModel(
+  factory SearchResultModel.fromJson(Map<String, dynamic> json) => SearchResultModel(
     page: json["page"],
     results: List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
     totalPages: json["total_pages"],
@@ -47,7 +47,7 @@ class PopularMoviesModel {
 
 class Result {
   bool adult;
-  String backdropPath;
+  String? backdropPath;
   List<int> genreIds;
   int id;
   String originalLanguage;
@@ -55,7 +55,7 @@ class Result {
   String overview;
   double popularity;
   String? posterPath;
-  DateTime releaseDate;
+  String releaseDate;
   String title;
   bool video;
   double voteAverage;
@@ -88,7 +88,7 @@ class Result {
     String? overview,
     double? popularity,
     String? posterPath,
-    DateTime? releaseDate,
+    String? releaseDate,
     String? title,
     bool? video,
     double? voteAverage,
@@ -125,7 +125,7 @@ class Result {
     overview: json["overview"],
     popularity: json["popularity"]?.toDouble(),
     posterPath: json["poster_path"],
-    releaseDate: DateTime.parse(json["release_date"]),
+    releaseDate: json["release_date"],
     title: json["title"],
     video: json["video"],
     voteAverage: json["vote_average"]?.toDouble(),
@@ -142,7 +142,7 @@ class Result {
     "overview": overview,
     "popularity": popularity,
     "poster_path": posterPath,
-    "release_date": "${releaseDate.year.toString().padLeft(4, '0')}-${releaseDate.month.toString().padLeft(2, '0')}-${releaseDate.day.toString().padLeft(2, '0')}",
+    "release_date": releaseDate,
     "title": title,
     "video": video,
     "vote_average": voteAverage,

@@ -15,9 +15,10 @@ class UpcomingMoviesProvider extends ChangeNotifier{
     try{
       upcomingMoviesModel = await repository.getUpcomingMovies();
       _state = apiState.loaded;
-    }catch(e){
+    }catch(e,stackTrace){
       ErrorMessage = e.toString();
       _state = apiState.error;
+      throw Exception('${e.toString()} ${stackTrace}');
     }
     notifyListeners();
   }

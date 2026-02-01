@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:movie_hub/view_model/searchMovies_view_model.dart';
+import 'package:movie_hub/view_model/try.dart';
+import 'package:provider/provider.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -10,6 +13,39 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchFocusNode = FocusNode();
+
+
+  final List<Map<String, dynamic>> movies = [
+    {
+      'title': 'Interstellar',
+      'year': '2014',
+      'genre': 'Sci-Fi',
+      'rating': 8.7,
+      'imageUrl': 'https://lh3.googleusercontent.com/aida-public/AB6AXuDTGUv1s7Ejxn7Xf8y3w2cheI5A6rtSkz2cp2p3YF3heirQhokPMnxFgqOqGusZ6njCELOfzL_kJTP2594F_R3jc6isn-9H6MEyPlyqvazeuS_S1a7dj4DnOB8Rtyw4IP3ZBtX4HuniZ-aCeIE-2dfAPKsDHlTk7pnU7fYcMQYnShYKCEwvkE_uvJDyx8xwKDohO5sfiy5iF_lL2trQbMj-0QoNhr712CmGPcvQcGLSGGEpTdVmGaRgkk-EASOzpSxjZl4eYL6VDk4',
+    },
+    {
+      'title': 'Beyond the Stars',
+      'year': '2021',
+      'genre': 'Documentary',
+      'rating': 7.2,
+      'imageUrl': 'https://lh3.googleusercontent.com/aida-public/AB6AXuBnhRdDSAqIwgyKqhkUXjqAh3w3FhoXhqzUOO5VcukJfnvhK6j3MSi_g5dkHRsEmApiwdI1SYeUTrZ6nyxfv9WbY-dPjo7poAfZEFDCB38vtBiBaxtkXAj2u6-lRQU01NgoiK_wqTukzPkTWDqzCy4_FUF3ApuhqdIcaBuMZUQ_xK5nTROp_keZu-EEHErirYltT3TpU-sE4rNgIdUywESgRE0YtLpkgYQbs-zH1-jT-4kQFky_pPN-i6-7avZh-sfGW8YSq8U6n5c',
+    },
+    {
+      'title': 'Mars Horizon',
+      'year': '2023',
+      'genre': 'Adventure',
+      'rating': 8.1,
+      'imageUrl': 'https://lh3.googleusercontent.com/aida-public/AB6AXuDoiedPtiIT-ypWYccQN0quyalgWlrma8BNQJz8eTuEGLa_hazJxF3zUHum-CIVVCfyA2pNW_cxu7GboIwWQ_9BimnOD_W4wCDc84BWNFeQCceakOWPJzSbn-t1m9VNwnrvHWgq4mexyA2WDHLF9MM9gmcC7f0lJtigCs1mkcEPTxFjdTe5BujH4c9ZQcXNeJ7n3MnvLzByj2b7LoQ9vevWrUXiqyYLVTMZR4l7I8KOjXDkrfoSIvigEBBEqA46FA1NeDw7_PY3Oeo',
+    },
+    {
+      'title': 'Project Gargantua',
+      'year': 'Coming Soon',
+      'genre': 'Sci-Fi',
+      'rating': null,
+      'imageUrl': null,
+    },
+  ];
+
 
   final List<RecentSearch> _recentSearches = [
     RecentSearch(icon: Icons.history, text: 'Recent Searches'),
@@ -57,10 +93,8 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   void _performSearch() {
-    // Implement search functionality
     final query = _searchController.text.trim();
     if (query.isNotEmpty) {
-      // Add to recent searches if not already there
       if (!_recentSearches.any((search) => search.text == query)) {
         setState(() {
           _recentSearches.insert(1, RecentSearch(
@@ -74,49 +108,23 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<SearchMoviesProvider>(context);
     return Scaffold(
       backgroundColor: const Color(0xFF161022),
       body: SafeArea(
         child: Column(
           children: [
-            // Top App Bar
             Container(
               color: const Color(0xFF161022),
               padding: const EdgeInsets.all(16).copyWith(bottom: 8),
-              child: Row(
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(
-                      Icons.arrow_back,
-                      color: Colors.white,
-                      size: 24,
-                    ),
-                  ),
-                  const Expanded(
-                    child: Text(
-                      'Search',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      // Show filter options
-                    },
-                    icon: const Icon(
-                      Icons.tune,
-                      color: Colors.white,
-                      size: 24,
-                    ),
-                  ),
-                ],
+              child: Text(
+                'Search',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
 
@@ -163,7 +171,20 @@ class _SearchScreenState extends State<SearchScreen> {
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.symmetric(horizontal: 12),
                         ),
-                        onSubmitted: (_) => _performSearch(),
+                        onSubmitted: (query)async {
+                          final query = _searchController.text.trim();
+                          if (query.isNotEmpty) {
+                            if (!_recentSearches.any((search) => search.text == query)) {
+                              setState(() {
+                                _recentSearches.insert(1, RecentSearch(
+                                  icon: Icons.search,
+                                  text: query,
+                                ));
+                              });
+                            }
+                          }
+                          await provider.getSearchResults(query);
+                        },
                       ),
                     ),
                   ],
@@ -172,7 +193,7 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
 
             Expanded(
-              child: ListView(
+              child: _searchController.text.isEmpty?ListView(
                 children: [
                   // Recent Searches Section
                   if (_recentSearches.isNotEmpty) ...[
@@ -235,7 +256,8 @@ class _SearchScreenState extends State<SearchScreen> {
 
                   const SizedBox(height: 40),
                 ],
-              ),
+              )
+                  :MovieSearchScreen()
             ),
           ],
         ),
@@ -351,6 +373,106 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
         ],
       ),
+    );
+  }
+
+
+  Widget _buildMovieCard(Map<String, dynamic> movie) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              color: const Color(0xFF1c1c1e),
+              image: movie['imageUrl'] != null
+                  ? DecorationImage(
+                image: NetworkImage(movie['imageUrl']!),
+                fit: BoxFit.cover,
+              )
+                  : null,
+            ),
+            child: movie['imageUrl'] == null
+                ? Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                gradient: const LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Color(0xFF5b13ec),
+                    Colors.black,
+                  ],
+                ),
+              ),
+              child: const Center(
+                child: Icon(
+                  Icons.movie,
+                  color: Colors.white30,
+                  size: 64,
+                ),
+              ),
+            )
+                : Stack(
+              children: [
+                // Rating badge
+                Positioned(
+                  top: 8,
+                  right: 8,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.6),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(
+                          Icons.star,
+                          color: Colors.yellow,
+                          size: 14,
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                          movie['rating']?.toString() ?? 'N/A',
+                          style: const TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(height: 12),
+        Text(
+          movie['title'],
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'BeVietnamPro',
+          ),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
+        const SizedBox(height: 4),
+        Text(
+          '${movie['year']} • ${movie['genre']}',
+          style: const TextStyle(
+            color: Color(0xFF9ca3af),
+            fontSize: 12,
+            fontFamily: 'BeVietnamPro',
+          ),
+        ),
+      ],
     );
   }
 

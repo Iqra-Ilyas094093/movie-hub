@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-class MovieDetailsModel {
+class SingleMovieIdSearch {
   bool adult;
   String backdropPath;
   dynamic belongsToCollection;
@@ -9,7 +9,6 @@ class MovieDetailsModel {
   String homepage;
   int id;
   String imdbId;
-  List<String> originCountry;
   String originalLanguage;
   String originalTitle;
   String overview;
@@ -28,7 +27,7 @@ class MovieDetailsModel {
   double voteAverage;
   int voteCount;
 
-  MovieDetailsModel({
+  SingleMovieIdSearch({
     required this.adult,
     required this.backdropPath,
     required this.belongsToCollection,
@@ -37,7 +36,6 @@ class MovieDetailsModel {
     required this.homepage,
     required this.id,
     required this.imdbId,
-    required this.originCountry,
     required this.originalLanguage,
     required this.originalTitle,
     required this.overview,
@@ -57,7 +55,7 @@ class MovieDetailsModel {
     required this.voteCount,
   });
 
-  MovieDetailsModel copyWith({
+  SingleMovieIdSearch copyWith({
     bool? adult,
     String? backdropPath,
     dynamic belongsToCollection,
@@ -66,7 +64,6 @@ class MovieDetailsModel {
     String? homepage,
     int? id,
     String? imdbId,
-    List<String>? originCountry,
     String? originalLanguage,
     String? originalTitle,
     String? overview,
@@ -85,7 +82,7 @@ class MovieDetailsModel {
     double? voteAverage,
     int? voteCount,
   }) =>
-      MovieDetailsModel(
+      SingleMovieIdSearch(
         adult: adult ?? this.adult,
         backdropPath: backdropPath ?? this.backdropPath,
         belongsToCollection: belongsToCollection ?? this.belongsToCollection,
@@ -94,7 +91,6 @@ class MovieDetailsModel {
         homepage: homepage ?? this.homepage,
         id: id ?? this.id,
         imdbId: imdbId ?? this.imdbId,
-        originCountry: originCountry ?? this.originCountry,
         originalLanguage: originalLanguage ?? this.originalLanguage,
         originalTitle: originalTitle ?? this.originalTitle,
         overview: overview ?? this.overview,
@@ -114,11 +110,11 @@ class MovieDetailsModel {
         voteCount: voteCount ?? this.voteCount,
       );
 
-  factory MovieDetailsModel.fromRawJson(String str) => MovieDetailsModel.fromJson(json.decode(str));
+  factory SingleMovieIdSearch.fromRawJson(String str) => SingleMovieIdSearch.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory MovieDetailsModel.fromJson(Map<String, dynamic> json) => MovieDetailsModel(
+  factory SingleMovieIdSearch.fromJson(Map<String, dynamic> json) => SingleMovieIdSearch(
     adult: json["adult"],
     backdropPath: json["backdrop_path"],
     belongsToCollection: json["belongs_to_collection"],
@@ -126,8 +122,7 @@ class MovieDetailsModel {
     genres: List<Genre>.from(json["genres"].map((x) => Genre.fromJson(x))),
     homepage: json["homepage"],
     id: json["id"],
-    imdbId: json["imdb_id"],
-    originCountry: List<String>.from(json["origin_country"].map((x) => x)),
+    imdbId: json["imdb_id"]??'',
     originalLanguage: json["original_language"],
     originalTitle: json["original_title"],
     overview: json["overview"],
@@ -156,7 +151,6 @@ class MovieDetailsModel {
     "homepage": homepage,
     "id": id,
     "imdb_id": imdbId,
-    "origin_country": List<dynamic>.from(originCountry.map((x) => x)),
     "original_language": originalLanguage,
     "original_title": originalTitle,
     "overview": overview,

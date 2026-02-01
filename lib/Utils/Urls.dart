@@ -6,6 +6,7 @@ class AppUrl {
   static String popularMoviesEndpoint = '/movie/popular';
   static String topRatedMoviesEndpoint = '/movie/top_rated';
   static String upcomingMoviesEndpoint = '/movie/upcoming';
+  static String searchMoviesEndpoint = '/search/movie';
 
 
 }

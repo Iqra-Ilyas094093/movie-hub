@@ -17,10 +17,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   void initState() {
     super.initState();
-    // Initialize with sample data
     _nameController.text = 'Sarah Connor';
     _emailController.text = 'sarah.connor@example.com';
-    _passwordController.text = 'password123'; // In real app, don't store plain text
+    _passwordController.text = 'password123';
   }
 
   @override
@@ -180,12 +179,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
             const SizedBox(height: 20),
 
-            // Profile Photo Section
             _buildProfilePhotoSection(),
 
             const SizedBox(height: 20),
 
-            // Form Fields
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
